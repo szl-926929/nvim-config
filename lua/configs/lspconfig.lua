@@ -58,6 +58,9 @@ lspconfig.gopls.setup({
             completeUnimported = true,
             usePlaceholders = true,
             staticcheck = true,
+            env = {
+                GOFLAGS = "-tags=wireinject",
+            },
         },
     },
 })
