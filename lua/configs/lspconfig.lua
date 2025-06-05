@@ -8,7 +8,7 @@ local lspconfig = require("lspconfig")
 lspconfig.servers = {
     "lua_ls",
     -- "clangd",
-    -- "gopls",
+    "gopls",
     -- "hls",
     -- "ols",
     -- "pyright",
@@ -39,28 +39,28 @@ end
 --     capabilities = capabilities,
 -- })
 
--- lspconfig.gopls.setup({
---     on_attach = function(client, bufnr)
---         client.server_capabilities.documentFormattingProvider = false
---         client.server_capabilities.documentRangeFormattingProvider = false
---         on_attach(client, bufnr)
---     end,
---     on_init = on_init,
---     capabilities = capabilities,
---     cmd = { "gopls" },
---     filetypes = { "go", "gomod", "gotmpl", "gowork" },
---     root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
---     settings = {
---         gopls = {
---             analyses = {
---                 unusedparams = true,
---             },
---             completeUnimported = true,
---             usePlaceholders = true,
---             staticcheck = true,
---         },
---     },
--- })
+lspconfig.gopls.setup({
+    on_attach = function(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+        on_attach(client, bufnr)
+    end,
+    on_init = on_init,
+    capabilities = capabilities,
+    cmd = { "gopls" },
+    filetypes = { "go", "gomod", "gotmpl", "gowork" },
+    root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+    settings = {
+        gopls = {
+            analyses = {
+                unusedparams = true,
+            },
+            completeUnimported = true,
+            usePlaceholders = true,
+            staticcheck = true,
+        },
+    },
+})
 
 -- lspconfig.hls.setup({
 --     on_attach = function(client, bufnr)

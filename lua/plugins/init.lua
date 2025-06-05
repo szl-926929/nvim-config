@@ -16,7 +16,8 @@ return {
             require("configs.lspconfig")
         end,
     },
-
+    -- https://github.com/mason-org/mason.nvim/issues/1421
+    -- GOOS=darwin GOARCH=arm64 nvim
     {
         "williamboman/mason-lspconfig.nvim",
         event = "VeryLazy",
@@ -57,6 +58,54 @@ return {
         dependencies = { "conform.nvim" },
         config = function()
             require("configs.mason-conform")
+        end,
+    },
+
+    {
+        "nvim-tree/nvim-tree.lua",
+        -- enabled = false,
+        opts = require("configs.tree"),
+    },
+    {
+        "nvim-tree/nvim-web-devicons",
+        opts = function()
+            return { override = require("nvchad.icons.devicons") }
+        end,
+        config = function(_, opts)
+            dofile(vim.g.base46_cache .. "devicons")
+            require("nvim-web-devicons").setup(opts)
+        end,
+    },
+
+    -- brew install ripgrep
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            {
+                "nvim-lua/plenary.nvim",
+            },
+            {
+                "nvim-telescope/telescope-fzf-native.nvim",
+                build = "make",
+            },
+        },
+        opts = require("configs.telescope"),
+    },
+
+    -- brew install ctags
+    {
+        "preservim/tagbar",
+        lazy = false,
+    },
+
+    {
+        "hrsh7th/nvim-cmp",
+        opts = function(_, opts)
+            local cmp = require("cmp")
+            opts.mapping = vim.tbl_extend("force", opts.mapping, {
+                ["<Up>"] = cmp.mapping.select_prev_item(),
+                ["<Down>"] = cmp.mapping.select_next_item(),
+            })
         end,
     },
 }

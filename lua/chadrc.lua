@@ -5,12 +5,13 @@
 local M = {}
 
 M.base46 = {
-    theme = "catppuccin",
-
-    -- hl_override = {
-    -- 	Comment = { italic = true },
-    -- 	["@comment"] = { italic = true },
-    -- },
+    theme = "everblush",
+    hl_override = {
+        CursorLine = { bg = "#888888" },
+        Visual = { bg = "#888888" },
+        CursorLineNr = { bg = "#f1c40f" },
+        NvimTreeCursorLine = { bg = "#888888" },
+    },
 }
 
 return M
