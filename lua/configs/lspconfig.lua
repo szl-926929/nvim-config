@@ -9,6 +9,8 @@ lspconfig.servers = {
     "lua_ls",
     -- "clangd",
     "gopls",
+    -- protobuf
+    "buf_ls",
     -- "hls",
     -- "ols",
     -- "pyright",
