@@ -103,3 +103,33 @@ lspconfig.lua_ls.setup({
         },
     },
 })
+
+-------------------------
+---linting提示
+-------------------------
+--- 关闭代码后面的提示详情
+vim.diagnostic.config({
+    -- the message show after the current line
+    virtual_text = false,
+    signs = true,
+    underline = true,
+    update_in_insert = true,
+    severity_sort = false,
+    float = {
+        style = "minimal",
+        border = "rounded",
+    },
+})
+
+-- You will likely want to reduce updatetime which affects CursorHold
+-- note: this setting is global and should be set only once
+-- 改善lint错误提示, 显示光标所在行的提示信息
+-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#customizing-how-diagnostics-are-displayed
+vim.o.updatetime = 250
+-- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+vim.api.nvim_create_autocmd({ "CursorHold" }, {
+    group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
+    callback = function()
+        vim.diagnostic.open_float(nil, { focus = false })
+    end,
+})
