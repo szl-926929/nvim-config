@@ -5,14 +5,16 @@
 local M = {}
 
 M.base46 = {
-    theme = "everblush",
+    theme = "solarized_dark",
     hl_override = {
-        CursorLine = { bg = "#888888" },
-        Visual = { bg = "#888888" },
-        CursorLineNr = { bg = "#f1c40f" },
+        -- CursorLine = { bg = "#1A5058" },
+        Visual = { bg = "#CFCFBA" },
+
+        CursorLineNr = { bg = "#cfcaba" },
 
         -- :Telescope highlights 查看支持插件可以配置都theme选项
-        NvimTreeCursorLine = { bg = "#888888" },
+        NvimTreeCursorLine = { bg = "#1A5058" },
+        NvimTreeLineNr = { bg = "#cfcaba" },
         TelescopeSelection = { bg = "#888888" },
     },
 }
