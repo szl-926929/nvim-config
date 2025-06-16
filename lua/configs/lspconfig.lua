@@ -14,6 +14,7 @@ lspconfig.servers = {
     -- "hls",
     -- "ols",
     -- "pyright",
+    "yamlls",
 }
 
 -- list of servers configured with default config.
@@ -62,6 +63,26 @@ lspconfig.gopls.setup({
             staticcheck = true,
             env = {
                 GOFLAGS = "-tags=wireinject",
+            },
+        },
+    },
+})
+
+-- https://www.reddit.com/r/neovim/comments/197t7my/question_how_to_configure_yamlls_formatter_with/?tl=zh-hans
+lspconfig.yamlls.setup({
+    on_attach = function(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = true
+        -- 我加了这行
+        on_attach(client, bufnr)
+    end,
+    capabilities = capabilities,
+    settings = {
+        yaml = {
+            format = {
+                enable = true,
+            },
+            schemaStore = {
+                enable = true,
             },
         },
     },
