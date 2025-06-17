@@ -71,6 +71,8 @@ local cmd = vim.cmd
 cmd([[let g:tagbar_ctags_bin='/opt/homebrew/bin/ctags']])
 cmd([[let $TMPDIR=$HOME . '/.tmp']])
 
--- NvimTreeStatusLine
--- cmd([[ $TMPDIR=$HOME . '/.tmp']])
---
+----------------------
+-- statusline
+----------------------
+-- vim每个窗口都线上文件路径
+vim.cmd([[set laststatus=2]]) -- 设置状态栏在倒数第2行
