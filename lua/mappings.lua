@@ -20,6 +20,18 @@ local map = vim.keymap.set
 ---<leader> + th: 切换theme
 
 ----------------------
+--treesitter
+----------------------
+-- vaf: 选中整个函数
+-- vif: 选择函数体，不包括函数名
+-- vac: 选中整个类定义(struct)
+-- vic: 选中整个类定体，不包含类名，但是包含大括号(struct)
+-- vaa: 选中当前参数，包含逗号
+-- via: 选中当前参数，不包含逗号
+-- ]]: 光标调到下一个函数声明处
+-- [[: 光标调到上一个函数声明处
+
+----------------------
 --lsp
 ----------------------
 -- K: 显示文档，再次K，进入文档窗口中，q退出
@@ -126,6 +138,11 @@ map("n", "<leader>c", "<cmd>cclose<CR>", { desc = "close quickfix" })
 
 ----------------------
 --telescope
+-- esc: 进入normal模式
+--normal模式下，f/d: 滚动显示搜索的view内容
+-- <C-c>: insert mode，直接关闭telescope
+-- <C-q>: 在quickfix窗口显示
+-- <M-q>: 在quickfix窗口显示选中的文件列表
 ----------------------
 map("n", "<C-p>", "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", { desc = "Find all" })
 map("n", ";fd", "<cmd> Telescope live_grep <CR>", { desc = "Live grep" })
@@ -145,10 +162,3 @@ map("n", "<leader>fs", "<cmd> Telescope lsp_document_symbols symbol_width=50 <CR
 -- *：展开所有tag
 
 map("n", "<F8>", "<cmd>TagbarToggle<CR>", { desc = "open tagbar" })
-
--- 自定义高亮颜色
--- vim.api.nvim_set_hl(0, "CursorLine", { bg = "#888888" })
--- vim.api.nvim_set_hl(0, "Visual", { bg = "#888888" })
--- vim.api.nvim_set_hl(0, "GitSignsCurrentLineBlame", { bg = "#888888" })
--- vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#f1c40f", bold = true })
--- vim.api.nvim_set_hl(0, "CursorColumn", { bg = "#888888" })

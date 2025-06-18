@@ -1,11 +1,35 @@
 return {
 
+    -- {
+    --     "nvim-treesitter/nvim-treesitter",
+    --     event = { "BufReadPre", "BufNewFile" },
+    --     config = function()
+    --         require("configs.treesitter")
+    --     end,
+    -- },
+
     {
         "nvim-treesitter/nvim-treesitter",
         event = { "BufReadPre", "BufNewFile" },
         config = function()
             require("configs.treesitter")
         end,
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter-textobjects",
+            {
+                "nvim-treesitter/nvim-treesitter-context",
+                config = function()
+                    require("configs.treesitter-context")
+                end,
+            },
+            {
+                "abecodes/tabout.nvim",
+                event = "InsertEnter",
+                config = function()
+                    require("configs.tabout")
+                end,
+            },
+        },
     },
 
     {

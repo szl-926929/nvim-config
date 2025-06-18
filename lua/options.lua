@@ -53,13 +53,6 @@ vim.o.cursorlineopt = "number,line"
 vim.cmd([[set cursorcolumn]])
 vim.cmd([[set cursorline]])
 
--- vim.cmd("hi LineNr guifg=#888888")
--- vim.cmd("hi GitSignsCurrentLineBlame guifg=#777777")
-
--- vim.cmd("hi Cursorline guibg=#555555")
--- vim.cmd("hi Comment guifg=#888888")
--- vim.cmd("hi Visual guibg=#555555")
-
 ----------------------
 -- tagbar
 -- brew install ctags
