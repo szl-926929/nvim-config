@@ -162,3 +162,11 @@ map("n", "<leader>fs", "<cmd> Telescope lsp_document_symbols symbol_width=50 <CR
 -- *：展开所有tag
 
 map("n", "<F8>", "<cmd>TagbarToggle<CR>", { desc = "open tagbar" })
+
+----------------------
+--theme
+----------------------
+-- <leader>z：最大化当前窗口
+map("n", "<leader>z", function()
+    require("windex").toggle_nvim_maximize()
+end, { desc = "Toggle Maximize Current Windown" })

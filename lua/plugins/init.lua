@@ -136,4 +136,11 @@ return {
         "lewis6991/gitsigns.nvim",
         opts = require("configs.gitsigns"),
     },
+
+    {
+        "declancm/windex.nvim",
+        config = function()
+            require("windex").setup()
+        end,
+    },
 }
