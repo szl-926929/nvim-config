@@ -35,6 +35,10 @@ M.ui = {
                 local icon = "󰈚"
                 local path = vim.api.nvim_buf_get_name(stbufnr())
                 local name = (path == "" and "Empty ") or path:match("([^/\\]+)[/\\]*$")
+                local project = vim.fn.getcwd()
+                if string.sub(path, 1, #project) == project then
+                    path = string.sub(path, #project + 1)
+                end
 
                 if name ~= "Empty " then
                     local devicons_present, devicons = pcall(require, "nvim-web-devicons")
@@ -45,14 +49,11 @@ M.ui = {
                     end
                 end
 
-                local rPath = vim.fn.expand("%:.:h")
-                local rName = rPath .. "/" .. name
                 local maxLength = 53
-                if string.len(rName) > maxLength then
-                    rName = string.sub(rName, string.len(rName) - maxLength + 3, string.len(rName))
-                    rName = "..." .. rName
+                if string.len(path) > maxLength then
+                    path = string.sub(path, string.len(path) - maxLength + 3, string.len(path))
                 end
-                return "%#file#" .. " " .. icon .. " " .. rName
+                return "%#file#" .. " " .. icon .. " " .. path
             end,
         },
     },
