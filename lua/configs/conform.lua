@@ -1,10 +1,11 @@
 local options = {
+    -- log_level = vim.log.levels.TRACE,
     formatters_by_ft = {
         lua = { "stylua" },
         -- c = { "clang-format" },
         -- cpp = { "clang-format" },
         -- go = { "gofumpt", "goimports-reviser", "golines", "goimports" },
-        go = { "gofumpt", "goimports-reviser", "goimports" },
+        go = { "gofumpt", "golines", "goimports-reviser" },
         -- haskell = { "fourmolu", "stylish-haskell" },
         -- python = { "isort", "black" },
     },
@@ -26,11 +27,13 @@ local options = {
         ["goimports-reviser"] = {
             -- prepend_args = { "-rm-unused" },
             -- prepend_args = { "-format", "-rm-unused" },
-            prepend_args = { "-format", "-rm-unused" },
+            -- prepend_args = { "-rm-unused", "-set-alias", "-format" },
+            prepend_args = { "-set-alias", "-format" },
         },
-        -- golines = {
-        --     prepend_args = { "--max-len=120" },
-        -- },
+        golines = {
+            -- prepend_args = { "--max-len=120" },
+            prepend_args = { "--max-len=150" },
+        },
 
         -- -- Lua
         -- stylua = {
@@ -60,7 +63,7 @@ local options = {
 
     format_on_save = {
         -- These options will be passed to conform.format()
-        timeout_ms = 1000,
+        timeout_ms = 10000,
         lsp_fallback = true,
     },
 }

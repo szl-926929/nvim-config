@@ -22,6 +22,7 @@ M.base46 = {
         TelescopeSelection = { bg = "#888888" },
         -- 查看某个配置的颜色值：:lua print(vim.fn.synIDattr(vim.fn.hlID("StatusLine"), "fg#"))
         StatusLine = { bold = true, underline = true, fg = "#e0e2ea", bg = "#4f5258" }, -- 设置状态栏前景色和背景色，同时添加粗体和下划线
+        StatusLineNC = { bold = false, underline = false },
     },
 }
 -- vim.api.nvim_set_hl(0, "StatusLine", { cterm = "bold,underline", guifg = "NvimLightGrey2", guibg = "NvimDarkGrey4" }) -- 设置状态栏前景色和背景色
