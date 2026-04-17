@@ -19,6 +19,7 @@ lspconfig.servers = {
 
 -- list of servers configured with default config.
 local default_servers = {
+    "buf_ls",
     -- "ols",
     -- "pyright",
 }
@@ -55,16 +56,32 @@ lspconfig.gopls.setup({
     root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
     settings = {
         gopls = {
+            gofumpt = true,
             analyses = {
                 unusedparams = true,
+                nilness = true,
+                unusedwrite = true,
+                useany = true,
             },
             completeUnimported = true,
             usePlaceholders = true,
             staticcheck = true,
+            codelenses = {
+                generate = true,
+                test = true,
+                tidy = true,
+            },
+            hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+            },
             env = {
                 GOFLAGS = "-tags=unit,wireinject",
             },
-            verboseOutput = true,
         },
     },
 })
@@ -135,7 +152,7 @@ vim.diagnostic.config({
     virtual_text = false,
     signs = true,
     underline = true,
-    update_in_insert = true,
+    update_in_insert = false,
     severity_sort = false,
     float = {
         style = "minimal",

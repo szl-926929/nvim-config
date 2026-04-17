@@ -85,18 +85,12 @@ end, { desc = "LSP implementation" })
 -- R: Refresh
 
 map("n", "sf", function()
-    local function starts_with(String, Start)
-        return string.sub(String, 1, string.len(Start)) == Start
-    end
-
     local cwd = vim.fn.getcwd()
     local cur_path = vim.fn.expand("%:p:h")
     local cur_file_path = vim.fn.expand("%:p")
-    if starts_with(cur_path, cwd) then
-        --require('nvim-tree.api').tree.toggle({path=cur_path, update_root=cwd})
+    if vim.startswith(cur_path, cwd) then
         require("nvim-tree.api").tree.find_file({ open = true, focus = true, buf = cur_file_path, update_root = cwd })
     else
-        --require('nvim-tree.api').tree.toggle({path=cur_path})
         require("nvim-tree.api").tree.find_file({
             open = true,
             focus = true,
@@ -105,21 +99,6 @@ map("n", "sf", function()
         })
     end
 end, { desc = "show file in tree" })
-
-map("n", "t", function()
-    local api = require("nvim-tree.api")
-    api.node.open.tab()
-end, { desc = "opened in a new tab" })
-
-map("n", "_", function()
-    local api = require("nvim-tree.api")
-    api.node.open.horizontal()
-end, { desc = "Open: Horizontal Split" })
-
-map("n", "+", function()
-    local api = require("nvim-tree.api")
-    api.node.open.vertical()
-end, { desc = "Open: Horizontal Split" })
 
 map("n", "<leader>t", ":NvimTreeResize ", { desc = "resize tree xxx" })
 map("n", "tl", "<cmd>NvimTreeResize +10<CR>", { desc = "nvimtree resize +10" })
@@ -135,6 +114,7 @@ map("n", "t2", "<cmd>tabnext 2<CR>", { desc = "choose 2 tab" })
 map("n", "t3", "<cmd>tabnext 3<CR>", { desc = "choose 3 tab" })
 map("n", "t4", "<cmd>tabnext 4<CR>", { desc = "choose 4 tab" })
 map("n", "<leader>c", "<cmd>cclose<CR>", { desc = "close quickfix" })
+map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic list" })
 
 ----------------------
 --telescope
@@ -161,7 +141,7 @@ map("n", "<leader>fs", "<cmd> Telescope lsp_document_symbols symbol_width=50 <CR
 -- =：折叠所有 tag
 -- *：展开所有tag
 
-map("n", "<F8>", "<cmd>TagbarToggle<CR>", { desc = "open tagbar" })
+-- <F8> tagbar toggle is defined in plugins/init.lua for lazy loading
 
 ----------------------
 --theme

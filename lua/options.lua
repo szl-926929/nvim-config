@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
         local layout = vim.api.nvim_call_function("winlayout", {})
         if
             layout[1] == "leaf"
-            and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype") == "NvimTree"
+            and vim.bo[vim.api.nvim_win_get_buf(layout[2])].filetype == "NvimTree"
             and layout[3] == nil
         then
             vim.cmd("quit")
@@ -37,14 +37,24 @@ opt.termguicolors = true
 -- za：打开或关闭当前折叠
 -- zM: 折叠所有代码
 -- zR: 展开所有折叠的代码
-opt.foldmethod = "expr" -- fold with nvim_treesitter
-opt.foldexpr = "nvim_treesitter#foldexpr()" --fold with nvim_treesitter
-opt.foldenable = false -- no fold when open a file
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldenable = true
 opt.foldlevel = 99
--- fix: Telescope 打开文件无法折叠，必须:e重新加载后才可以
-opt.foldexpr = "nvim_treesitter#foldexpr()" --fold with nvim_treesitter
-opt.foldenable = false -- no fold when open a file
-opt.foldlevel = 99
+opt.foldlevelstart = 99
+
+-- Telescope 等异步打开文件时，treesitter 可能还未完成解析，
+-- 需要在窗口显示 buffer 后重新触发折叠计算
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    group = vim.api.nvim_create_augroup("FixTreesitterFolds", { clear = true }),
+    callback = function()
+        if vim.wo.foldmethod == "expr" then
+            vim.schedule(function()
+                vim.opt_local.foldmethod = "expr"
+            end)
+        end
+    end,
+})
 
 -- 窗口变小不自动换行
 opt.wrap = false

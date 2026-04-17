@@ -55,7 +55,7 @@ M.ui = {
 
                 local maxLength = 53
                 if string.len(path) > maxLength then
-                    path = string.sub(path, string.len(path) - maxLength + 3, string.len(path))
+                    path = "…" .. string.sub(path, string.len(path) - maxLength + 4, string.len(path))
                 end
                 return "%#file#" .. " " .. icon .. " " .. path
             end,

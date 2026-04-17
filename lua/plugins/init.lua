@@ -119,7 +119,10 @@ return {
     -- brew install ctags
     {
         "preservim/tagbar",
-        lazy = false,
+        cmd = "TagbarToggle",
+        keys = {
+            { "<F8>", "<cmd>TagbarToggle<CR>", desc = "Toggle Tagbar" },
+        },
     },
 
     {

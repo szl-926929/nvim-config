@@ -1,5 +1,19 @@
+local function on_attach(bufnr)
+    local api = require("nvim-tree.api")
+    local function opts(desc)
+        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    end
+
+    api.config.mappings.default_on_attach(bufnr)
+
+    vim.keymap.set("n", "t", api.node.open.tab, opts("Open: New Tab"))
+    vim.keymap.set("n", "_", api.node.open.horizontal, opts("Open: Horizontal Split"))
+    vim.keymap.set("n", "+", api.node.open.vertical, opts("Open: Vertical Split"))
+end
+
 local options = {
-    -- 关闭文件时自动关闭
+    on_attach = on_attach,
+
     actions = {
         open_file = {
             quit_on_open = false,
@@ -26,7 +40,7 @@ local options = {
     },
     update_cwd = true,
     update_focused_file = {
-        enable = false,
+        enable = true,
         update_cwd = false,
         ignore_list = {},
     },
