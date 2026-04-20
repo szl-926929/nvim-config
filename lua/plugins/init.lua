@@ -9,6 +9,11 @@ return {
     -- },
 
     {
+        "mason-org/mason.nvim",
+        opts = require("configs.mason"),
+    },
+
+    {
         "nvim-treesitter/nvim-treesitter",
         event = { "BufReadPre", "BufNewFile" },
         config = function()
