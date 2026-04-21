@@ -6,6 +6,8 @@ end
 
 ---@type render.md.UserConfig
 render_md.setup({
+    -- Open markdown in raw/source view by default.
+    enabled = false,
     completions = { lsp = { enabled = true } },
     anti_conceal = { enabled = true },
 })

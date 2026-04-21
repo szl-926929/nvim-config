@@ -17,7 +17,7 @@ local options = {
     -- 国内直连 github.com 常超时/失败；与 clone 一样走 ghproxy 前缀。
     -- 若仍失败：换可用镜像域名、或开代理后把本段改回默认 URL 测试。
     github = {
-        download_url_template = "https://ghproxy.com/https://github.com/%s/releases/download/%s/%s",
+        download_url_template = "https://github.com/%s/releases/download/%s/%s",
     },
 
     -- pip 国内镜像（针对 Python 工具）
