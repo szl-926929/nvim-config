@@ -8,10 +8,16 @@ local options = {
         -- "github:your-username/mason-registry-mirror",
     },
 
-    -- GitHub 镜像配置（通过 git 配置）
+    -- GitHub 镜像配置
     git = {
-        -- 使用 ghproxy 等 GitHub 镜像服务
+        -- 仅影响 Mason 用 git 拉取的包（registry 等）
         clone_url_template = "https://ghproxy.com/https://github.com/%s.git",
+    },
+    -- Release 二进制下载（marksman、ripgrep 等走 GitHub releases，不经上面的 git 模板）
+    -- 国内直连 github.com 常超时/失败；与 clone 一样走 ghproxy 前缀。
+    -- 若仍失败：换可用镜像域名、或开代理后把本段改回默认 URL 测试。
+    github = {
+        download_url_template = "https://ghproxy.com/https://github.com/%s/releases/download/%s/%s",
     },
 
     -- pip 国内镜像（针对 Python 工具）
