@@ -12,4 +12,13 @@ ts_ctx.setup({
     zindex = 20,
     mode = "cursor",
     separator = nil,
+    -- Markdown (esp. injections like markdown_inline) can yield empty TS match
+    -- lists; nvim-treesitter-context then calls :range() on nil (Neovim 0.10+
+    -- iter_matches shape). Skip context for these buffers.
+    on_attach = function(bufnr)
+        local ft = vim.bo[bufnr].filetype
+        if ft == "markdown" then
+            return false
+        end
+    end,
 })
