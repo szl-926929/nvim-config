@@ -17,6 +17,8 @@ local options = {
         "luadoc",
         -- "make",
         "markdown",
+        "markdown_inline",
+        "html",
         -- "odin",
         "printf",
         -- "python",

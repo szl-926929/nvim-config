@@ -154,4 +154,18 @@ return {
             require("windex").setup()
         end,
     },
+
+    -- Markdown: in-buffer preview (headings, code blocks, tables, callouts, …)
+    -- Needs treesitter parsers: markdown, markdown_inline (see configs/treesitter.lua)
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        ft = { "markdown" },
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-tree/nvim-web-devicons",
+        },
+        config = function()
+            require("configs.markdown")
+        end,
+    },
 }
