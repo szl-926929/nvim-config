@@ -69,3 +69,6 @@ local options = {
 }
 
 require("nvim-treesitter.configs").setup(options)
+
+-- Neovim 0.12 capture shape (TSNode[]) vs nvim-treesitter query_predicates
+require("configs.treesitter-compat")
