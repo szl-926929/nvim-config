@@ -5,7 +5,8 @@ local options = {
         -- c = { "clang-format" },
         -- cpp = { "clang-format" },
         -- go = { "gofumpt", "goimports-reviser", "golines", "goimports" },
-        go = { "gofumpt", "golines", "goimports-reviser" },
+        -- gofumpt (style) → goimports-reviser (imports) → golines (line length) last
+        go = { "gofumpt", "goimports-reviser", "golines" },
         markdown = { "prettier" },
         -- haskell = { "fourmolu", "stylish-haskell" },
         -- python = { "isort", "black" },
@@ -62,8 +63,10 @@ local options = {
         -- },
     },
 
-    format_on_save = {
-        timeout_ms = 3000,
+    -- format_on_save runs in BufWritePre and blocks until all formatters finish (feels laggy).
+    -- format_after_save runs async after write, then :update — UI stays responsive.
+    format_after_save = {
+        timeout_ms = 15000,
         lsp_fallback = true,
     },
 }

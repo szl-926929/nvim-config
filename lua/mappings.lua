@@ -47,6 +47,8 @@ local map = vim.keymap.set
 -- <leader>q: 展示lint提示列表
 -- [d: 上一个lint提示
 -- ]d: 下一个lint提示
+-- [e / ]e: 仅在上一条/下一条「错误(ERROR)」级诊断间跳转（跳过 warning/info）
+-- <leader>fe: Telescope 只看当前缓冲区的 ERROR
 -- <leader>x: 关闭当前tabuf
 map("n", "gr", function()
     vim.lsp.buf.references()
@@ -116,6 +118,18 @@ map("n", "t4", "<cmd>tabnext 4<CR>", { desc = "choose 4 tab" })
 map("n", "<leader>c", "<cmd>cclose<CR>", { desc = "close quickfix" })
 map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic list" })
 
+local diag_float = { float = true }
+map("n", "]e", function()
+    vim.diagnostic.goto_next(vim.tbl_extend("force", {
+        severity = vim.diagnostic.severity.ERROR,
+    }, diag_float))
+end, { desc = "Next ERROR diagnostic" })
+map("n", "[e]", function()
+    vim.diagnostic.goto_prev(vim.tbl_extend("force", {
+        severity = vim.diagnostic.severity.ERROR,
+    }, diag_float))
+end, { desc = "Prev ERROR diagnostic" })
+
 ----------------------
 --telescope
 -- esc: 进入normal模式
@@ -127,6 +141,12 @@ map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic list" })
 map("n", "<C-p>", "<cmd> Telescope find_files follow=true no_ignore=true hidden=true <CR>", { desc = "Find all" })
 map("n", ";fd", "<cmd> Telescope live_grep <CR>", { desc = "Live grep" })
 map("n", "<leader>fs", "<cmd> Telescope lsp_document_symbols symbol_width=50 <CR>", { desc = "lsp document symbols" })
+map("n", "<leader>fe", function()
+    require("telescope.builtin").diagnostics({
+        bufnr = 0,
+        severity_limit = vim.diagnostic.severity.ERROR,
+    })
+end, { desc = "Telescope diagnostics (ERROR only, this buffer)" })
 
 ----------------------
 -- tagbar
