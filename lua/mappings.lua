@@ -103,8 +103,8 @@ map("n", "sf", function()
 end, { desc = "show file in tree" })
 
 map("n", "<leader>t", ":NvimTreeResize ", { desc = "resize tree xxx" })
-map("n", "tl", "<cmd>NvimTreeResize +10<CR>", { desc = "nvimtree resize +10" })
-map("n", "th", "<cmd>NvimTreeResize -10<CR>", { desc = "nvimtree resize -10" })
+map("n", "nl", "<cmd>NvimTreeResize +10<CR>", { desc = "nvimtree resize +10" })
+map("n", "nh", "<cmd>NvimTreeResize -10<CR>", { desc = "nvimtree resize -10" })
 
 ----------------------
 --tab页
