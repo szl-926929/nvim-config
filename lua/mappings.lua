@@ -162,6 +162,8 @@ end, { desc = "Telescope diagnostics (ERROR only, this buffer)" })
 -- *：展开所有tag
 
 -- <F8> tagbar toggle is defined in plugins/init.lua for lazy loading
+map("n", "<leader>tu", "<cmd>TagbarForceUpdate<CR>", { desc = "Tagbar force update" })
+map("n", "<leader>tp", "<cmd>pclose<CR>", { desc = "Close preview window" })
 
 ----------------------
 --theme

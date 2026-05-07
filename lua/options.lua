@@ -73,6 +73,21 @@ vim.cmd([[set cursorline]])
 local cmd = vim.cmd
 cmd([[let g:tagbar_ctags_bin='/opt/homebrew/bin/ctags']])
 cmd([[let $TMPDIR=$HOME . '/.tmp']])
+-- Tagbar 卡顿优化：关闭自动跟随更新（CursorHold/BufEnter），改为手动刷新。
+cmd([[let g:tagbar_no_autocmds = 1]])
+-- 禁用光标移动时自动预览，避免在 Tagbar 中 j/k 频繁触发重绘/跳转。
+cmd([[let g:tagbar_autopreview = 0]])
+-- 大文件跳过自动解析，避免 ctags 扫描导致卡顿。
+cmd([[let g:tagbar_file_size_limit = 300000]])
+-- 仅在 Tagbar 窗口关闭高开销 UI 选项，减少移动光标时卡顿。
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "tagbar",
+    group = vim.api.nvim_create_augroup("TagbarPerf", { clear = true }),
+    callback = function()
+        vim.opt_local.cursorline = false
+        vim.opt_local.cursorcolumn = false
+    end,
+})
 
 ----------------------
 -- statusline

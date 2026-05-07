@@ -84,6 +84,20 @@ return {
         end,
     },
 
+    -- Go: 测试/重构/文档等（不接管 gopls / conform / nvim-lint，见 configs/go.lua 与 doc/go-nvim.md）
+    {
+        "ray-x/go.nvim",
+        ft = { "go", "gomod", "gosum", "gowork", "gotmpl" },
+        build = ':lua require("go.install").update_all_sync()',
+        dependencies = {
+            "ray-x/guihua.lua",
+            "neovim/nvim-lspconfig",
+        },
+        config = function()
+            require("configs.go")
+        end,
+    },
+
     {
         "zapling/mason-conform.nvim",
         event = "VeryLazy",
