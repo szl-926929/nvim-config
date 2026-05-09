@@ -37,7 +37,8 @@ M.ui = {
         modules = {
             file = function()
                 local icon = "󰈚"
-                local path = vim.api.nvim_buf_get_name(stbufnr())
+                local bufnr = stbufnr()
+                local path = vim.api.nvim_buf_get_name(bufnr)
                 local name = (path == "" and "Empty ") or path:match("([^/\\]+)[/\\]*$")
                 local project = vim.fn.getcwd()
                 if string.sub(path, 1, #project) == project then
@@ -57,7 +58,10 @@ M.ui = {
                 if string.len(path) > maxLength then
                     path = "…" .. string.sub(path, string.len(path) - maxLength + 4, string.len(path))
                 end
-                return "%#file#" .. " " .. icon .. " " .. path
+
+                local modified = vim.bo[bufnr].modified and " [+]" or ""
+                local readonly = vim.bo[bufnr].readonly and " [RO]" or ""
+                return "%#file#" .. " " .. icon .. " " .. path .. modified .. readonly
             end,
         },
     },
