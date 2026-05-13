@@ -33,8 +33,21 @@ M.ui = {
     statusline = {
         separator_style = "round",
         theme = "default",
-        order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "cwd", "cursor" },
+        order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "lsp", "cwd", "progress" },
         modules = {
+            --- 文件内位置：行/总行 · 百分比（按行数）
+            progress = function()
+                local win = vim.g.statusline_winid
+                if not win or win == 0 then
+                    return ""
+                end
+                local buf = vim.api.nvim_win_get_buf(win)
+                local cur = vim.api.nvim_win_get_cursor(win)[1]
+                local total = math.max(1, vim.api.nvim_buf_line_count(buf))
+                local pct = math.floor((cur * 100) / total + 0.5)
+                pct = math.min(100, math.max(0, pct))
+                return "%#St_pos_text# " .. cur .. "/" .. total .. " · " .. pct .. "%% "
+            end,
             file = function()
                 local icon = "󰈚"
                 local bufnr = stbufnr()

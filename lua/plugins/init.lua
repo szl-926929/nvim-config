@@ -88,6 +88,7 @@ return {
     {
         "ray-x/go.nvim",
         ft = { "go", "gomod", "gosum", "gowork", "gotmpl" },
+        -- :Lazy sync 自动安装依赖
         build = ':lua require("go.install").update_all_sync()',
         dependencies = {
             "ray-x/guihua.lua",
