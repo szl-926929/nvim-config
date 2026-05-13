@@ -8,6 +8,9 @@ local map = vim.keymap.set
 -- map("i", "jk", "<ESC>")
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+-- 可视模式覆盖粘贴不污染寄存器：
+-- 选中文本后按 p，会把选中内容丢到 black-hole 寄存器，保持下一次粘贴内容不变。
+map("x", "p", [["_dP]], { desc = "Paste over selection without yanking replaced text" })
 
 -- 输入模式下：
 -- ctrl-b：行头
@@ -117,6 +120,36 @@ map("n", "t3", "<cmd>tabnext 3<CR>", { desc = "choose 3 tab" })
 map("n", "t4", "<cmd>tabnext 4<CR>", { desc = "choose 4 tab" })
 map("n", "<leader>c", "<cmd>cclose<CR>", { desc = "close quickfix" })
 map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic list" })
+
+----------------------
+-- quickfix
+----------------------
+-- <leader>qf：光标跳到 quickfix 窗口；若尚未打开则 :copen
+local function focus_quickfix()
+    for _, win in ipairs(vim.api.nvim_list_wins()) do
+        local buf = vim.api.nvim_win_get_buf(win)
+        if vim.bo[buf].buftype == "quickfix" then
+            vim.api.nvim_set_current_win(win)
+            return
+        end
+    end
+    vim.cmd.copen()
+end
+map("n", "<leader>qf", focus_quickfix, { desc = "Focus quickfix (or open)" })
+
+-- （光标在 quickfix 窗口内时）
+-- <leader>ot：当前条目在新 tab 中打开（<CR> 仍为默认：在上次使用的窗口打开）
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "qf",
+    group = vim.api.nvim_create_augroup("QuickfixKeymaps", { clear = true }),
+    callback = function(ev)
+        map("n", "<leader>ot", "<CR><C-w>T", {
+            buffer = ev.buf,
+            desc = "Quickfix: open entry in new tab",
+            silent = true,
+        })
+    end,
+})
 
 local diag_float = { float = true }
 map("n", "]e", function()
